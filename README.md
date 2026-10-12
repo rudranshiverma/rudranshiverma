@@ -16,13 +16,14 @@ Final-year B.Tech Computer Science student (graduating 2027), building applied A
 ## Projects
 
 ### AudioInsight - Deepfake Audio Detection
-Dual-model system detecting AI-generated speech, built to compare a spectral approach against a self-supervised one on the same task rather than just ensembling them.
 
-- ResNet18 on mel spectrograms + Wav2Vec2 fine-tuned on raw waveforms
-- Trained on ASVspoof 2019 LA, extended with fine-tuning on modern TTS-generated audio
-- GradCAM and attention-weight visualization for interpretability
-- EER ≈ 0.045 (ResNet18), ≈ 0.041 (Wav2Vec2), PR-AUC ≈ 0.9983
-- Deployed on Hugging Face Spaces
+Detects AI-generated speech with two complementary models, a spectrogram CNN and a fine-tuned self-supervised speech transformer, evaluated on the ASVspoof 2019 LA benchmark and served through an explainable web app.
+
+* **1.06% EER on unseen attacks** with wav2vec 2.0 (min t-DCF 0.035), in the range of published systems such as RawNet2; ResNet18 reaches 6.31%, beating both official ASVspoof baselines
+* ResNet18 on log-mel spectrograms and wav2vec 2.0 fine-tuned on raw waveforms, trained with RawBoost augmentation, with checkpoints and thresholds selected on dev only
+* Evaluated with the official ASVspoof scoring code, bootstrap confidence intervals and per-attack analysis on 71,237 eval clips across 13 attacks, 11 of them unseen in training
+* Grad-CAM over the spectrogram and frame-level attention explain each prediction
+* FastAPI + React app on Hugging Face Spaces
 
 **[Repo](https://github.com/rudranshiverma/audioinsight-deepfake-audio-detection)** · **[Demo](https://huggingface.co/spaces/rudranshiverma/audioinsight-deepfake-audio-detection)**
 
